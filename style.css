@@ -1,7 +1,23 @@
+h1{
+    text-align: center;
+    color: rgba(175, 47, 47, 0.15);¨
+    font-family: ;
+}
+
+.display-container{
+    text-align: center;
+    border: solid;
+}
+
 .hidden{
     display: none;
 }
 
 ul{
     list-style: none;
+}
+
+ul li{
+    border: solid;
+    margin: 5px;
 }

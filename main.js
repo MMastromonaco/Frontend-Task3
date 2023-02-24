@@ -31,22 +31,24 @@ form.addEventListener('submit', function(event) {
   }
 });
 
-checkAll.addEventListener('click', function () {
+checkAll.addEventListener('click', function (event) {
   event.preventDefault();
-    let checkboxes = document.querySelectorAll('input[type=checkbox]');
-    // Count the number of checked checkboxes. If it is less than max amount of boxes checked, mark everyone checked. Else (If all already is checked), uncheck everyone.
-    let counter = 0;
-    for(let i = 0; i < checkboxes.length; i++){
-        if (checkboxes[i].checked = true) {
-          counter++;
-        }
-        if (checkboxes[i].checked = false) {
-          checkboxes[i].checked = true;
-        }
-        if (counter === checkboxes.length) {
-          checkboxes[i].checked = false;
-        }
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  let counter = 0;
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked === true) {
+      counter++;
     }
+  }
+  if (counter === checkboxes.length) {
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+  } else {
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = true;
+    }
+  }
 });
 
 function hideCheckboxAll() {
