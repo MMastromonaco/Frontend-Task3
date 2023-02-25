@@ -1,5 +1,5 @@
 body{
-    font-family: 14px 'Helvetica Neue',
+    font: 14px 'Helvetica Neue',
      Helvetica, 
      Arial, 
      sans-serif;
@@ -22,13 +22,22 @@ h1{
   padding: 0;
 }
 
-#list-input{
-    border: 0;
-    width: 95%;
-    text-align: center;
-    height: 100px;
-    background-color: red;
-
+#list-input {
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: 1.4em;
+    color: inherit;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+#list-input:focus {
+    outline: none;
+    border-bottom: 1px solid #333;
 }
 
 .hidden{
@@ -47,10 +56,10 @@ ul li {
   justify-content: space-between;
   align-items: center;
   height: 100px;
-  background-color: red;
+  
   border: solid 1px;
   margin-top: 1px;
-  font-size: 60px;
+  font-size: 24px;
 }
 
 li label {

@@ -8,6 +8,24 @@ const showCompleted = document.querySelector('#show-completed');
 const clearCompleted = document.querySelector('#clear-completed');
 const itemsCounter = document.querySelector('#items-counter');
 
+//testade att lägga detta i en function som kallades på.
+//funkar inte men tror det kan bero på handhavandefel
+function hideButtons() {
+  checkAll.classList.add('hidden');
+  showAll.classList.add('hidden');
+  showActive.classList.add('hidden');
+  showCompleted.classList.add('hidden');
+  itemsCounter.classList.add('hidden');
+}
+//samma här då de alltid syns efter första tasken lagts till.
+function showButtons() {
+  checkAll.classList.remove('hidden');
+  showAll.classList.remove('hidden');
+  showActive.classList.remove('hidden');
+  showCompleted.classList.remove('hidden');
+  itemsCounter.classList.remove('hidden');
+}
+
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   const inputValue = input.value;
@@ -24,20 +42,18 @@ form.addEventListener('submit', function(event) {
   deleteButton.value = '❌';
   deleteButton.addEventListener('click', function() {
     listItem.remove();
+    if(list.childNodes.length === 0) {
+      hideButtons();
+    }
+    updateRemainingTasks();
   });
   listItem.appendChild(checkbox);
   listItem.appendChild(taskText);
   listItem.appendChild(deleteButton);
   list.appendChild(listItem);
   input.value = '';
-
-  if(list.childNodes.length > 0) {
-    checkAll.classList.remove('hidden');
-    showAll.classList.remove('hidden');
-    showActive.classList.remove('hidden');
-    showCompleted.classList.remove('hidden');
-    itemsCounter.classList.remove('hidden');
-  }
+  showButtons();
+  updateRemainingTasks();
 });
 
 checkAll.addEventListener('click', function (event) {
@@ -66,14 +82,73 @@ function hideCheckboxAll() {
   }
 };
 
-async function updateRemainingTasks() {
+function updateRemainingTasks() {
   event.preventDefault();
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
-  let counter = 0;
+  let activeCount = 0;
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked === false) {
-      counter++;
+      activeCount++;
     }
   }
-  itemsCounter.createTextNode(counter + 'items left');
+  itemsCounter.textContent = activeCount + ' items left';
+  
+  let completedCount = checkboxes.length - activeCount;
+  if (completedCount > 0) {
+    clearCompleted.classList.remove('hidden');
+  } else {
+    clearCompleted.classList.add('hidden');
+  }
 };
+
+//https://www.w3schools.com/howto/howto_js_display_checkbox_text.asp
+//Tittade på länken ovan för att förstå hur man displayade
+//något baserat på iklickad checkbox.
+//https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
+//samt den.
+
+showAll.addEventListener('click', function (event) {
+  event.preventDefault();
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].parentElement.style.display = 'block';
+  }
+});
+
+showActive.addEventListener('click', function (event) {
+  event.preventDefault();
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked === false) {
+      checkboxes[i].parentElement.style.display = 'block';
+    } else {
+      checkboxes[i].parentElement.style.display = 'none';
+    }
+  }
+});
+
+showCompleted.addEventListener('click', function (event) {
+  event.preventDefault();
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked === true) {
+      checkboxes[i].parentElement.style.display = 'block';
+    } else {
+      checkboxes[i].parentElement.style.display = 'none';
+    }
+  }
+});
+
+
+//Har bråkat med denna. Den vill inte fungera,
+//knappen syns inte och jag fattar fan noll.
+clearCompleted.addEventListener('click', function (event) {
+  event.preventDefault();
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked === true) {
+      checkboxes[i].parentElement.remove();
+    }
+  }
+  hideCheckboxAll();
+});
