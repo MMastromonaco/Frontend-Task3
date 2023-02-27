@@ -68,19 +68,32 @@ checkAll.addEventListener('click', function (event) {
   if (counter === checkboxes.length) {
     for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = false;
+      clearCompleted.classList.add('hidden');
     }
   } else {
     for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = true;
+      clearCompleted.classList.remove('hidden');
     }
   }
 });
 
-function hideCheckboxAll() {
-  if(list.childNodes.length === 0) {
-    checkAll.classList.add('hidden');
+list.addEventListener('click', function (event) {
+  event.preventDefault();
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  let counter = 0;
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked === true) {
+      clearCompleted.classList.remove('hidden');
+    }
   }
-};
+});
+
+// function hideCheckboxAll() {
+//   if(list.childNodes.length === 0) {
+//     checkAll.classList.add('hidden');
+//   }
+// };
 
 function updateRemainingTasks() {
   event.preventDefault();
