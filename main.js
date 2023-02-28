@@ -25,7 +25,7 @@ function showButtons() {
 
 function taskAmount() {
   let amount = list.childElementCount;
-  document.getElementById("amount").innerText = amount;
+  document.getElementById("amount").innerText = amount + " items left";
 }
 
 hideButtons();
@@ -41,18 +41,21 @@ form.addEventListener('submit', function (event) {
   const listItem = document.createElement('li');
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
-  checkbox.addEventListener('change',(event =>{
+  checkbox.addEventListener('change', (event => {
     if (event.target.checked) {
-    clearCompleted.classList.remove("hidden")
-    listItem.style.color = "red";
+      clearCompleted.classList.remove("hidden")
+      clearCompleted.classList.add("crossed")
     }
-    else{
-    clearCompleted.classList.add("hidden")
-    listItem.style.color = "blue";
-
+    else {
+      clearCompleted.classList.add("hidden")
+      clearCompleted.classList.remove("crossed")
     }
   }))
-  const taskText = document.createTextNode(inputValue);
+
+  let taggElement = document.createElement('p')
+  taggElement.textContent = inputValue;
+
+  // const taskText = document.createTextNode(inputValue);
   const deleteButton = document.createElement('input');
   deleteButton.type = 'button';
   deleteButton.value = '❌';
@@ -62,11 +65,9 @@ form.addEventListener('submit', function (event) {
       hideButtons();
     }
     taskAmount();
-
-
   });
   listItem.appendChild(checkbox);
-  listItem.appendChild(taskText);
+  listItem.appendChild(taggElement);
   listItem.appendChild(deleteButton);
   list.appendChild(listItem);
   input.value = '';
