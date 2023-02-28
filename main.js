@@ -1,6 +1,7 @@
 const form = document.querySelector('#search-form');
 const input = document.querySelector('#list-input');
 const list = document.querySelector('#generated-List');
+const checked = document.querySelector('#Checkbox')
 const checkAll = document.querySelector('#checkbox-all');
 const showAll = document.querySelector('#show-all');
 const showActive = document.querySelector('#show-active');
@@ -18,14 +19,14 @@ function hideButtons() {
 //samma här då de alltid syns efter första tasken lagts till.
 function showButtons() {
   showbuttons.classList.remove("hidden")
+  clearCompleted.classList.add("hidden")
   checkAll.classList.remove("hidden")
 }
 
 function taskAmount() {
   let amount = list.childElementCount;
-  document.getElementById("amount").innerHTML = amount;
+  document.getElementById("amount").innerText = amount;
 }
-
 
 hideButtons();
 
@@ -36,9 +37,21 @@ form.addEventListener('submit', function (event) {
     alert('Skriv något!');
     return;
   }
+  //Skappa en p tagg även!
   const listItem = document.createElement('li');
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
+  checkbox.addEventListener('change',(event =>{
+    if (event.target.checked) {
+    clearCompleted.classList.remove("hidden")
+    listItem.style.color = "red";
+    }
+    else{
+    clearCompleted.classList.add("hidden")
+    listItem.style.color = "blue";
+
+    }
+  }))
   const taskText = document.createTextNode(inputValue);
   const deleteButton = document.createElement('input');
   deleteButton.type = 'button';
@@ -120,9 +133,6 @@ showCompleted.addEventListener('click', function (event) {
   }
 });
 
-
-//Har bråkat med denna. Den vill inte fungera,
-//knappen syns inte och jag fattar fan noll.
 clearCompleted.addEventListener('click', function (event) {
   event.preventDefault();
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
@@ -138,3 +148,5 @@ clearCompleted.addEventListener('click', function (event) {
   taskAmount();
 
 });
+
+
