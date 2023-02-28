@@ -82,7 +82,6 @@ checkAll.addEventListener('click', function (event) {
 });
 
 
-
 //https://www.w3schools.com/howto/howto_js_display_checkbox_text.asp
 //Tittade på länken ovan för att förstå hur man displayade
 //något baserat på iklickad checkbox.
