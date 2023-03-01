@@ -22,8 +22,14 @@ function showButtons() {
 }
 
 function taskAmount() {
-  let amount = list.childElementCount;
-  document.getElementById("amount").innerText = amount + " items left";
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  let unchecked = 0;
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (!checkboxes[i].checked) {
+      unchecked++;
+    }
+  }
+  document.getElementById("amount").innerText = unchecked + " items left";
 }
 
 hideButtons();
@@ -43,6 +49,7 @@ form.addEventListener('submit', function (event) {
     if (event.target.checked) {
       clearCompleted.classList.remove("hidden")
       taggElement.classList.add("crossed")
+      taskAmount();
     }
     else {
       taggElement.classList.remove("crossed")
@@ -59,6 +66,7 @@ form.addEventListener('submit', function (event) {
       else{
         clearCompleted.classList.remove("hidden");
       }
+      taskAmount();
     }
   }))
 
@@ -106,6 +114,7 @@ checkAll.addEventListener('click', function (event) {
       clearCompleted.classList.remove("hidden")
     }
   }
+  taskAmount();
 });
 
 
@@ -162,5 +171,3 @@ clearCompleted.addEventListener('click', function (event) {
   taskAmount();
 
 });
-
-
