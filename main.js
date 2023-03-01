@@ -10,13 +10,11 @@ const showbuttons = document.querySelector(".button-container");
 const clearCompleted = document.querySelector('#clear-completed');
 const itemsCounter = document.querySelector('#items-counter');
 
-//testade att lägga detta i en function som kallades på.
-//funkar inte men tror det kan bero på handhavandefel
 function hideButtons() {
   showbuttons.classList.add("hidden")
   checkAll.classList.add("hidden")
 }
-//samma här då de alltid syns efter första tasken lagts till.
+
 function showButtons() {
   showbuttons.classList.remove("hidden")
   clearCompleted.classList.add("hidden")
@@ -44,11 +42,23 @@ form.addEventListener('submit', function (event) {
   checkbox.addEventListener('change', (event => {
     if (event.target.checked) {
       clearCompleted.classList.remove("hidden")
-      clearCompleted.classList.add("crossed")
+      taggElement.classList.add("crossed")
     }
     else {
-      clearCompleted.classList.add("hidden")
-      clearCompleted.classList.remove("crossed")
+      taggElement.classList.remove("crossed")
+      let checkboxes = document.querySelectorAll('input[type=checkbox]');
+      let counter = 0;
+        for(let i = 0; i < checkboxes.length; i++){
+          if (checkboxes[i].checked===true){
+            counter++;
+          }
+        }
+      if (counter === 0){
+        clearCompleted.classList.add("hidden");
+      }
+      else{
+        clearCompleted.classList.remove("hidden");
+      }
     }
   }))
 
@@ -87,10 +97,13 @@ checkAll.addEventListener('click', function (event) {
   if (counter === checkboxes.length) {
     for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = false;
+      clearCompleted.classList.add("hidden")
+      
     }
   } else {
     for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = true;
+      clearCompleted.classList.remove("hidden")
     }
   }
 });
