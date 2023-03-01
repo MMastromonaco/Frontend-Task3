@@ -43,6 +43,7 @@ form.addEventListener('submit', function (event) {
   }
   //Skappa en p tagg även!
   const listItem = document.createElement('li');
+  listItem.className = 'user-task';
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.addEventListener('change', (event => {
@@ -76,6 +77,7 @@ form.addEventListener('submit', function (event) {
   // const taskText = document.createTextNode(inputValue);
   const deleteButton = document.createElement('input');
   deleteButton.type = 'button';
+  deleteButton.className = 'delete';
   deleteButton.value = '❌';
   deleteButton.addEventListener('click', function () {
     listItem.remove();
