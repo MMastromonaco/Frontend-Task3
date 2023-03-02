@@ -130,7 +130,7 @@ showAll.addEventListener('click', function (event) {
   event.preventDefault();
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   for (let i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].parentElement.style.display = 'block';
+    checkboxes[i].parentElement.classList.remove('hidden');
   }
 });
 
@@ -139,9 +139,9 @@ showActive.addEventListener('click', function (event) {
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked === false) {
-      checkboxes[i].parentElement.style.display = 'block';
+      checkboxes[i].parentElement.classList.remove('hidden');
     } else {
-      checkboxes[i].parentElement.style.display = 'none';
+      checkboxes[i].parentElement.classList.add('hidden');
     }
   }
 });
@@ -151,9 +151,10 @@ showCompleted.addEventListener('click', function (event) {
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked === true) {
-      checkboxes[i].parentElement.style.display = 'block';
+      checkboxes[i].parentElement.classList.remove('hidden');
+
     } else {
-      checkboxes[i].parentElement.style.display = 'none';
+      checkboxes[i].parentElement.classList.add('hidden');
     }
   }
 });

@@ -4,25 +4,25 @@ html, body {
 }
 
 body {
-    font: 14px 'Helvetica Neue',
-     Helvetica, 
-     Arial, 
-     sans-serif;
-     line-height: 1.4em;
-     background: #f5f5f5;
-     color: #4d4d4d;
-     min-width: 230px;
-     max-width: 550px;
-     margin: auto;
+  font: 14px 'Helvetica Neue',
+  Helvetica, 
+  Arial, 
+  sans-serif;
+  line-height: 1.4em;
+  background: #f5f5f5;
+  color: #4d4d4d;
+  min-width: 230px;
+  max-width: 550px;
+  margin: auto
 }
 
 h1 {
-    text-align: center;
-    top: -155px;
-    width: 100%;
-    font-size: 100px;
-    font-weight: 100;
-    color: rgba(175, 47, 47, 0.15);
+  text-align: center;
+  top: -155px;
+  width: 100%;
+  font-size: 100px;
+  font-weight: 100;
+  color: rgba(175, 47, 47, 0.15);
 }
 
 #checkbox-all {
@@ -62,7 +62,7 @@ h1 {
 }
 
 .delete:hover {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 button {
@@ -72,14 +72,14 @@ button {
 }
 
 #list-input {
-    width: 100%;
-    font-size: 24px;
-    line-height: 1.4em;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  font-size: 24px;
+  line-height: 1.4em;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
   
 #list-input:focus {
   outline: none;
@@ -119,4 +119,8 @@ li input[type="checkbox"] {
 
 .crossed {
   text-decoration: line-through;
+}
+
+.button-container {
+  
 }
