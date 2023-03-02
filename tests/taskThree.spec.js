@@ -30,11 +30,11 @@ test('vertify the page update items left counter', async ({ page }) => {
 
   let tracker = await page.locator('#amount');
   const addTodo = page.getByPlaceholder('What needs to be done?');
-  
+
   // Create one items.
   await addTodo.fill(new_Todos[0]);
   await addTodo.press('Enter');
-  
+
   let trackerText = await tracker.textContent();
   // Assert completed class.
   await expect(trackerText).toEqual('1 items left');
@@ -46,4 +46,30 @@ test('vertify the page update items left counter', async ({ page }) => {
   trackerText = await tracker.textContent();
   // Assert completed class.
   await expect(trackerText).toEqual('0 items left');
-})
+});
+
+test('verify the remaining tasks count after completing a task', async ({ page }) => {
+  await page.goto('http://127.0.0.1:5500/');
+
+  let tracker = await page.locator('#amount');
+  const addTodo = page.getByPlaceholder('What needs to be done?');
+
+
+  // Add 3 tasks
+  await addTodo.fill(new_Todos[0]);
+  await addTodo.press('Enter');
+  await addTodo.fill(new_Todos[1]);
+  await addTodo.press('Enter');
+  await addTodo.fill(new_Todos[2]);
+  await addTodo.press('Enter');
+
+  // Check the checkbox of the second task
+  const todoFirst = page.locator('.user-task').nth(0);
+  await todoFirst.getByRole('checkbox').check();
+
+  // Verify that the amount left is 2
+  const amountLeft = await page.textContent('#amount');
+  expect(amountLeft).toBe('2 items left');
+});
+
+
