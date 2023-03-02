@@ -61,6 +61,7 @@ h1 {
   opacity: .5;
 }
 
+/* Vi använder !important för att överskriva Selector Specificity från selectorn ovan */
 .delete:hover {
   opacity: 1 !important;
 }
