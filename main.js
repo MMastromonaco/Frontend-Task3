@@ -17,11 +17,11 @@ function hideButtons() {
 
 function showButtons() {
   showbuttons.classList.remove("hidden")
-  clearCompleted.classList.add("hidden")
+  clearCompleted.classList.add("hidden-button")
   checkAll.classList.remove("hidden")
 }
 
-function taskAmount() {
+function displayTaskAmount() {
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   let unchecked = 0;
   for (let i = 0; i < checkboxes.length; i++) {
@@ -37,20 +37,17 @@ hideButtons();
 form.addEventListener('submit', function (event) {
   event.preventDefault();
   const inputValue = input.value;
-  if (inputValue === '') {
-    alert('Skriv något!');
-    return;
-  }
   //Skappa en p tagg även!
   const listItem = document.createElement('li');
   listItem.className = 'user-task';
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
+
   checkbox.addEventListener('change', (event => {
     if (event.target.checked) {
-      clearCompleted.classList.remove("hidden")
+      clearCompleted.classList.remove("hidden-button")
       taggElement.classList.add("crossed")
-      taskAmount();
+      displayTaskAmount();
     }
     else {
       taggElement.classList.remove("crossed")
@@ -62,42 +59,45 @@ form.addEventListener('submit', function (event) {
           }
         }
       if (counter === 0){
-        clearCompleted.classList.add("hidden");
+        clearCompleted.classList.add("hidden-button");
       }
       else{
-        clearCompleted.classList.remove("hidden");
+        clearCompleted.classList.remove("hidden-button");
       }
-      taskAmount();
+      displayTaskAmount();
     }
   }))
 
   let taggElement = document.createElement('p')
+  taggElement.classList.add('taskLabel')
   taggElement.textContent = inputValue;
 
-  // const taskText = document.createTextNode(inputValue);
   const deleteButton = document.createElement('input');
   deleteButton.type = 'button';
   deleteButton.className = 'delete';
   deleteButton.value = '❌';
+
   deleteButton.addEventListener('click', function () {
     listItem.remove();
     if (list.childElementCount === 0) {
       hideButtons();
     }
-    taskAmount();
+    displayTaskAmount();
   });
+
   listItem.appendChild(checkbox);
   listItem.appendChild(taggElement);
   listItem.appendChild(deleteButton);
   list.appendChild(listItem);
   input.value = '';
   showButtons();
-  taskAmount();
+  displayTaskAmount();
 });
 
 checkAll.addEventListener('click', function (event) {
   event.preventDefault();
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  let paragraphs = document.querySelectorAll('p.taskLabel');
   let counter = 0;
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked === true) {
@@ -107,16 +107,17 @@ checkAll.addEventListener('click', function (event) {
   if (counter === checkboxes.length) {
     for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = false;
-      clearCompleted.classList.add("hidden")
-      
+      clearCompleted.classList.add("hidden-button")
+      paragraphs[i].classList.remove('crossed')
     }
   } else {
     for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = true;
-      clearCompleted.classList.remove("hidden")
+      clearCompleted.classList.remove("hidden-button")
+      paragraphs[i].classList.add('crossed')
     }
   }
-  taskAmount();
+  displayTaskAmount();
 });
 
 
@@ -128,6 +129,10 @@ checkAll.addEventListener('click', function (event) {
 
 showAll.addEventListener('click', function (event) {
   event.preventDefault();
+  showAll.classList.add('boarded');
+  showCompleted.classList.remove('boarded');
+  showActive.classList.remove('boarded');
+
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].parentElement.classList.remove('hidden');
@@ -136,6 +141,10 @@ showAll.addEventListener('click', function (event) {
 
 showActive.addEventListener('click', function (event) {
   event.preventDefault();
+  showActive.classList.add('boarded');
+  showCompleted.classList.remove('boarded');
+  showAll.classList.remove('boarded');
+
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked === false) {
@@ -148,11 +157,14 @@ showActive.addEventListener('click', function (event) {
 
 showCompleted.addEventListener('click', function (event) {
   event.preventDefault();
+  showCompleted.classList.add('boarded')
+  showAll.classList.remove('boarded');
+  showActive.classList.remove('boarded');
+
   let checkboxes = document.querySelectorAll('input[type=checkbox]');
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked === true) {
       checkboxes[i].parentElement.classList.remove('hidden');
-
     } else {
       checkboxes[i].parentElement.classList.add('hidden');
     }
@@ -171,6 +183,5 @@ clearCompleted.addEventListener('click', function (event) {
   if (list.childElementCount === 0) {
     hideButtons();
   }
-  taskAmount();
-
+  displayTaskAmount();
 });
