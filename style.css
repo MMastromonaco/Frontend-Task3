@@ -41,6 +41,7 @@ h1 {
 #checkbox-all {
   border: none;
   background-color: white;
+  font-size: 22px;
 }
 
 .my-input::placeholder {
@@ -140,6 +141,8 @@ li input[type="checkbox"] {
   margin-right: 10px;
   /* La till denna för att aligna med CheckAll knappen */
   margin-left: 9px;
+  height: 22px;
+  width: 22px;
 }
 
 .button-container {
